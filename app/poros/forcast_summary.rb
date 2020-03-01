@@ -14,4 +14,8 @@ class ForcastSummary
     DailyForcast.next_five_days(response[:daily])
   end
 
+  def hourly_forcast
+    HourlyForcast.hourly_forcast(response[:hourly])
+  end
+
 end
