@@ -7,8 +7,10 @@ RSpec.describe 'Weather API' do
 
     expect(response).to be_successful
 
-    forcast_response = JSON.parse(response.body)
+    forcast_response = JSON.parse(response.body, symbolize_names: true)
 
     expect(forcast_response.count).to eq(2)
+    expect(forcast_response.first[0]).to eq(:location)
+    expect(forcast_response[:weather].count).to eq(3)
   end
 end
