@@ -1,25 +1,19 @@
 class CurrentForcastSummary
-
-  attr_reader :current_temp,
-              :summary,
-              :summary_icon,
+  attr_reader :summary,
+              :icon,
+              :current_temp,
               :feels_like,
-              :high_temp,
-              :low_temp,
               :humidity,
-              :visibility,
-              :uv_index
+              :uv_index,
+              :visibilty
 
   def initialize(data)
-    require "pry"; binding.pry
-    @current_temp = data[:currently][:temperature]
-    @summary = data[:daily][:data][0][:summary]
-    @summary_icon = data[:daily][:data][0][:icon]
-    @feels_like = data[:currently][:apparentTemperature]
-    @high_temp = data[:daily][:data][0][:temperatureHigh]
-    @low_temp = data[:daily][:data][0][:temperatureLow]
-    @humidity = data[:daily][:data][0][:humidity]
-    @visibility = data[:daily][:data][0][:visibility]
-    @uv_index = data[:daily][:data][0][:uvIndex]
+    @summary = data[:summary]
+    @icon = data[:icon]
+    @current_temp = data[:temperature]
+    @feels_like = data[:apparentTemperature]
+    @humidity = data[:humidity]
+    @uv_index = data[:uvIndex]
+    @visibilty = data[:visibilty]
   end
 end
