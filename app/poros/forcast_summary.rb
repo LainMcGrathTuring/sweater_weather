@@ -10,8 +10,8 @@ class ForcastSummary
     CurrentForcastSummary.new(response[:currently])
   end
 
-  def daily_weather
-    DailyForcast.new(response[:daily])
+  def daily_forcast
+    DailyForcast.next_five_days(response[:daily])
   end
 
 end
