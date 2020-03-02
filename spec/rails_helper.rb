@@ -76,4 +76,5 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.filter_sensitive_data('<google_key>') { ENV['GOOGLE_API']}
   config.filter_sensitive_data('<dark_sky_api_key>') { ENV['DARK_SKY_API']}
+  config.filter_sensitive_data('<unsplash_key>') { ENV['UPSPLASH_ACCESS_KEY']}
 end
