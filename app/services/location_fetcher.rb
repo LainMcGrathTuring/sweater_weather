@@ -20,6 +20,9 @@ class LocationFetcher
 
   def get_distance(start, destination)
     conn = connection
+    #could not get this to recognize that I was passing an origin params to work,
+    #wrote out url for the sake of time
+
     # response = conn.get("maps/api/directions/json") do |req|
     #   req.params['origin'] = "#{start.latitude}","#{start.longitude}"
     #   req.params['destination'] = "#{destination.latitude}","#{destination.longitude}"
@@ -33,6 +36,6 @@ class LocationFetcher
 
   def distance_parse(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    Trip.save_trip(parse)
+    Trip.new(parse)
   end
 end
