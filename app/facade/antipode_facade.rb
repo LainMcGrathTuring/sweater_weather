@@ -1,7 +1,6 @@
 class AntipodeFacade
 
-  attr_reader :start_location_coords,
-              :search_location,
+  attr_reader :search_location,
               :type,
               :id
 
@@ -9,7 +8,6 @@ class AntipodeFacade
     @id = nil
     @search_location = location
     @type = "antipode"
-    @start_cord = LocationFetcher.new.get_coordinates(@search_location)
   end
 
   def starting_location_coordinates
@@ -17,7 +15,8 @@ class AntipodeFacade
   end
 
   def location_name
-    AntipodeFetcher.new.get_antipode(@start_cord)
+    location_cords = starting_location_coordinates
+    AntipodeFetcher.new.get_antipode(location_cords)
   end
 
   def forecast

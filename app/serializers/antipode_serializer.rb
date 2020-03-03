@@ -3,5 +3,5 @@ class AntipodeSerializer
     attributes :location_name,
                :forecast,
                :search_location
-
+               
 end
