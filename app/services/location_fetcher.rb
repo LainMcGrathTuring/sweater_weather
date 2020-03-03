@@ -42,18 +42,18 @@ class LocationFetcher
 
   def parse_antipode(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    simple_parse = parse[:results][0]
-    antipode_details(simple_parse)
+    data = parse[:results][0]
+    antipode_details(data)
   end
 
   def antipode_details(data)
     #if antipode is in an ocean/body of water, [:address_components][1] does not exist
     #added this method to return more descriptive city name if antipode is not an ocean
-    if data[:address_components][1] == nil
-      [data[:address_components][0][:long_name],
+    if data[:address_components][1]
+      [data[:address_components][1][:long_name],
        data[:geometry][:location].values]
     else
-      [data[:address_components][1][:long_name],
+      [data[:address_components][0][:long_name],
        data[:geometry][:location].values]
     end
   end

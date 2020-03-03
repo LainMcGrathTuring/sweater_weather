@@ -7,7 +7,7 @@ RSpec.describe 'Antipode', :vcr do
     expect(response).to be_successful
 
     results = JSON.parse(response.body)
-
+    
     expect(results['data']['id']).to eq(nil)
     expect(results['data']['type']).to eq('antipode')
     expect(results['data']['attributes'].count).to eq(3)
@@ -23,6 +23,5 @@ RSpec.describe 'Antipode', :vcr do
     results = JSON.parse(response.body)
 
     expect(results['data']['attributes']['location_name']).to eq("Indian Ocean")
-
   end
 end
