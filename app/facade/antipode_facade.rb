@@ -23,13 +23,8 @@ class AntipodeFacade
     location_info.first
   end
 
-  def antipode_cords
-    location_info.second
-  end
-
-
   def forecast
-    antipode = antipode_cords
+    antipode = location_info.second
     ForecastFetcher.new.get_forecast(antipode)
   end
 end
