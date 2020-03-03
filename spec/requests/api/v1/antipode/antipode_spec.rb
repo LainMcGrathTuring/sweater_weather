@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Antipode', :vcr do
-  it 'can fidn antipode of Hong Kong' do
+  it 'can find antipode of Hong Kong' do
     get "/api/v1/antipode?location=Hong Kong"
 
     expect(response).to be_successful
