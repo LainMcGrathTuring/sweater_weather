@@ -14,13 +14,22 @@ class AntipodeFacade
     LocationFetcher.new.get_coordinates(@search_location)
   end
 
-  def location_name
+  def location_info
     location_cords = starting_location_coordinates
     AntipodeFetcher.new.get_antipode(location_cords)
   end
 
+  def location_name
+    location_info.first
+  end
+
+  def antipode_cords
+    location_info.second
+  end
+
+
   def forecast
-    antipode = location_name
-    ForecastFetcher.new.get_forecast(antipode.second)
+    antipode = antipode_cords
+    ForecastFetcher.new.get_forecast(antipode)
   end
 end
