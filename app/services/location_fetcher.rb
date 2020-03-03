@@ -18,24 +18,31 @@ class LocationFetcher
     Location.save_location(parse)
   end
 
-  def get_distance(start, destination)
+  def get_coordinates(location)
     conn = connection
-    #could not get this to recognize that I was passing an origin params to work,
-    #wrote out url for the sake of time
-
-    # response = conn.get("maps/api/directions/json") do |req|
-    #   req.params['origin'] = "#{start.latitude}","#{start.longitude}"
-    #   req.params['destination'] = "#{destination.latitude}","#{destination.longitude}"
-    #   req.params['key'] = ENV['GOOGLE_API']
-    # end
-
-    response = conn.get("maps/api/directions/json?origin=#{start.latitude},#{start.longitude}
-                        &destination=#{destination.latitude},#{destination.longitude}&key=#{ENV['GOOGLE_API']}")
-    distance_parse(response)
+    response = conn.get("maps/api/geocode/json") do |req|
+      req.params['address'] = "#{location}"
+      req.params['key'] = ENV['GOOGLE_API']
+    end
+    parse_location(response)
   end
 
-  def distance_parse(response)
+  def parse_location(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    Trip.new(parse)
+    parse[:results][0][:geometry][:location].values
+  end
+
+  def get_antipode_city_name(latlong_cords)
+    response = Faraday.get("https://maps.googleapis.com/maps/api/geocode/json") do |req|
+      req.params['latlng'] = "#{latlong_cords.first},#{latlong_cords.last}"
+      req.params['key'] = ENV['GOOGLE_API']
+    end
+    parse_antipode(response)
+  end
+
+  def parse_antipode(response)
+    parse = JSON.parse(response.body, symbolize_names: true)
+    [parse[:results][0][:address_components][1][:long_name],
+     parse[:results][0][:geometry][:location].values]
   end
 end
