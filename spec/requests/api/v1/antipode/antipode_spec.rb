@@ -14,4 +14,15 @@ RSpec.describe 'Antipode', :vcr do
     expect(results['data']['attributes']['forecast'].keys).to eq(["summary", "current_temperature"])
     expect(results['data']['attributes']['search_location']).to eq("Hong Kong")
   end
+
+  it 'can find antipode of Denver' do
+    get "/api/v1/antipode?location=Denver"
+
+    expect(response).to be_successful
+
+    results = JSON.parse(response.body)
+
+    expect(results['data']['attributes']['location_name']).to eq("Indian Ocean")
+
+  end
 end
