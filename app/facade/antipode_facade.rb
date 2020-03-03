@@ -16,7 +16,13 @@ class AntipodeFacade
     LocationFetcher.new.get_coordinates(@search_location)
   end
 
-  def antipode
-    AntipodeFetcher.new.get_antipode(@start_cord)
+  def location_name
+    @city = AntipodeFetcher.new.get_antipode(@start_cord)
+  end
+
+  def forcast
+    antipode = location_name
+    x = ForecastFetcher.new.get_forecast(antipode)
+    require "pry"; binding.pry
   end
 end
