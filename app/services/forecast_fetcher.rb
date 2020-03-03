@@ -12,6 +12,7 @@ class ForecastFetcher
 
   def response_parse(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    [ parse[:currently][:summary], parse[:currently][:temperature] ]
+    { summary: parse[:currently][:summary],
+      current_temperature: parse[:currently][:temperature] }
   end
 end
