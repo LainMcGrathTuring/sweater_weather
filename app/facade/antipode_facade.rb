@@ -25,6 +25,6 @@ class AntipodeFacade
 
   def forecast
     antipode = location_info.second
-    ForecastFetcher.new.get_forecast(antipode)
+    response = ForecastFetcher.new.get_forecast(antipode)
   end
 end

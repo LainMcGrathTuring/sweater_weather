@@ -7,7 +7,7 @@ RSpec.describe 'Antipode', :vcr do
     expect(response).to be_successful
 
     results = JSON.parse(response.body)
-    require "pry"; binding.pry
+
     expect(results['data']['id']).to eq(nil)
     expect(results['data']['type']).to eq('antipode')
     expect(results['data']['attributes'].count).to eq(3)
