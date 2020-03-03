@@ -11,20 +11,6 @@ class AntipodeFetcher
 
   def parse_response(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    get_city_name(parse[:data][:attributes].values)
-  end
-
-  def get_city_name(latlong_cords)
-    response = Faraday.get("https://maps.googleapis.com/maps/api/geocode/json") do |req|
-      req.params['latlng'] = "#{latlong_cords.first},#{latlong_cords.last}"
-      req.params['key'] = ENV['GOOGLE_API']
-    end
-    parse_antipode(response)
-  end
-
-  def parse_antipode(response)
-    parse = JSON.parse(response.body, symbolize_names: true)
-    [parse[:results][0][:address_components][1][:long_name],
-     parse[:results][0][:geometry][:location].values]
+    LocationFetcher.new.get_antipode_city_name(parse[:data][:attributes].values)
   end
 end
