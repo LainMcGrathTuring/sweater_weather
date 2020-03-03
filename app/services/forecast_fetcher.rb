@@ -6,11 +6,12 @@ class ForecastFetcher
 
   def get_forecast(location)
     conn = connection
-    response = conn.get("#{ENV['DARK_SKY_API']}/#{location.latitude},#{location.longitude}")
+    response = conn.get("#{ENV['DARK_SKY_API']}/#{location.first},#{location.second}")
     response_parse(response)
   end
 
   def response_parse(response)
-    JSON.parse(response.body, symbolize_names: true)
+    parse = JSON.parse(response.body, symbolize_names: true)
+    [ parse[:currently][:summary], parse[:currently][:temperature] ]
   end
 end

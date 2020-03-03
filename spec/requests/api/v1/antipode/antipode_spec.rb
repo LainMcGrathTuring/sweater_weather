@@ -8,23 +8,10 @@ RSpec.describe 'Antipode', :vcr do
     expect(response).to be_successful
 
     results = JSON.parse(response.body)
+
+    expect(results['data']['id']).to eq(nil)
+    expect(results['data']['type']).to eq('antipode')
+    expect(results['data']['attributes'].count).to eq(3)
+    expect(results['data']['attributes']['search_location']).to eq("Hong Kong")
   end
 end
-
-#
-# {
-#     "data": [
-#         {
-#             "id": "1",
-#             "type": "antipode",
-#             "attributes": {
-#                 "location_name": "Antipode City Name",
-#                 "forecast": {
-#                     "summary": "Mostly Cloudy,
-#                     "current_temperature": "72",
-#                                 },
-#             "search_location": "Hong Kong"
-#             }
-#         }
-#     ]
-# }

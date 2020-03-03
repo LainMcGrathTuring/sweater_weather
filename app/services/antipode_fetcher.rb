@@ -24,7 +24,7 @@ class AntipodeFetcher
 
   def parse_antipode(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
-    [parse[:results][0][:address_components][1][:long_name]]
+    [parse[:results][0][:address_components][1][:long_name],
+     parse[:results][0][:geometry][:location].values]
   end
 end

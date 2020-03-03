@@ -1,8 +1,7 @@
 class AntipodeSerializer
   include FastJsonapi::ObjectSerializer
-    attributes :search_location,
-               :starting_location_coordinates,
-               :location_name,
-               :forcast
+    attributes :location_name,
+               :forecast,
+               :search_location
 
 end

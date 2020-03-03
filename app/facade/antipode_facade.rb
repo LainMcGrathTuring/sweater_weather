@@ -17,12 +17,11 @@ class AntipodeFacade
   end
 
   def location_name
-    @city = AntipodeFetcher.new.get_antipode(@start_cord)
+    AntipodeFetcher.new.get_antipode(@start_cord)
   end
 
-  def forcast
+  def forecast
     antipode = location_name
-    x = ForecastFetcher.new.get_forecast(antipode)
-    require "pry"; binding.pry
+    ForecastFetcher.new.get_forecast(antipode.second)
   end
 end
