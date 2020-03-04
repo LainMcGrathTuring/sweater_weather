@@ -5,9 +5,9 @@ RSpec.describe 'Image API' do
     VCR.turn_off! :ignore_cassettes => true
     WebMock.allow_net_connect!
 
-    location = Location.create(id: 143, city: "Denver", state: "Colorado", country: "United States", latitude: 39.7392358, longitude: -104.87)
+    location = ("Denver, CO")
 
-    get "/api/v1/backgrounds?location=Denver,Colorado"
+    get "/api/v1/backgrounds?location=Denver,Colorado", params: location
 
     expect(response).to be_successful
 
@@ -16,16 +16,16 @@ RSpec.describe 'Image API' do
     expect(image_response[:image_info][:urls].count).to eq(5)
     expect(image_response[:image_info].count).to eq(5)
     expect(image_response[:image_info]).to have_key(:alt_description)
-    # expect(image_response[:image_info][:image_location]).to eq("Denver")
+    expect(image_response[:image_info][:location]).to eq("Denver")
   end
 
   it 'sends an image of a different city searched for' do
     VCR.turn_off! :ignore_cassettes => true
     WebMock.allow_net_connect!
 
-    location = Location.create(id: 143, city: "Fort Collins", state: "Colorado", country: "United States", latitude: 39.7392358, longitude: -104.87)
+    location = ("Fort Collins,CO")
 
-    get "/api/v1/backgrounds?location=Fort Collins,Colorado"
+    get "/api/v1/backgrounds?location=Fort Collins,Colorado", params: location
 
     expect(response).to be_successful
 
@@ -34,7 +34,6 @@ RSpec.describe 'Image API' do
     expect(image_response[:image_info][:urls].count).to eq(5)
     expect(image_response[:image_info].count).to eq(5)
     expect(image_response[:image_info]).to have_key(:alt_description)
-    # expect(image_response[:image_info][:image_location]).to eq("Fort Collins")
-
+    expect(image_response[:image_info][:location]).to eq("Fort Collins")
   end
 end
