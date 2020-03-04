@@ -33,7 +33,7 @@ RSpec.describe 'Login' do
     expect(response.body).to eq("Password confirmation doesn't match Password")
   end
 
-  it "if registered" do
+  it "if registered", :vcr  do
     user = User.create(
         "email": "whatever@example.com",
         "password": "password",
@@ -51,7 +51,7 @@ RSpec.describe 'Login' do
     expect(user_response['data']['attributes']).to have_key('api_key')
   end
 
-  it "if registered and enters bad credentials" do
+  it "if registered and enters bad credentials", :vcr  do
     user = User.create(
         "email": "whatever@example.com",
         "password": "password",
