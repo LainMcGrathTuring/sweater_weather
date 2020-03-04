@@ -4,7 +4,6 @@ class ImageSummary
 
   def initialize(location)
     @image = ImageFetcher.new.get_image(location)
-    @location = location
   end
 
   def single_image
@@ -13,8 +12,7 @@ class ImageSummary
       alt_description: single_image[:alt_description],
       height: single_image[:height],
       width: single_image[:width],
-      urls: single_image[:urls],
-      image_location: @location.city
+      urls: single_image[:urls]
     }
   end
 end
