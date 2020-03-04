@@ -1,7 +1,7 @@
 class Api::V1::BackgroundsController < ApplicationController
 
   def index
-    location = Location.where(city: params[:location].split(",").first, state: params[:location].split(",").second).first
+    location = LocationFetcher.new.get_location(params[:location])
     image = ImageFacade.new(location)
     render json: ImageSerializer.new(image)
   end
