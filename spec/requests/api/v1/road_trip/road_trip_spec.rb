@@ -13,7 +13,7 @@ RSpec.describe 'Road Trip' do
 
     expect(trip_response[:origin][:city]).to eq("Denver")
     expect(trip_response[:destination][:city]).to eq("Pueblo")
-    expect(trip_response[:data][:attributes].count).to eq(4)
-    expect(trip_response[:data][:attributes][:distance].count).to eq(2)
+    expect(trip_response.count).to eq(4)
+    expect(trip_response[:distance].count).to eq(2)
   end
 end
