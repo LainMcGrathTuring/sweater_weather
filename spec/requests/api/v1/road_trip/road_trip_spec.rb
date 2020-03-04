@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Road Trip' do
-  xit 'can find trip details', :vcr do
+  it 'can find trip details', :vcr do
     params = {
       origin: "Denver, CO",
       destination: "Pueblo, CO"
