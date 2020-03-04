@@ -17,7 +17,7 @@ class RoadTripFacade
 
   def distance
     trip = LocationFetcher.new.get_distance(origin, destination)
-    if trip != nil
+    if trip
       trip
     else
       "no routes found"
