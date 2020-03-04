@@ -9,13 +9,7 @@ class Api::V1::SessionsController < ApplicationController
      render json: UserSerializer.new(user)
    else
      response.status = 401
-     render json: "Credentials are not valid" 
+     render json: "Credentials are not valid"
    end
-  end
-
-  private
-
-  def user_params
-    params.permit(:email, :password)
   end
 end
