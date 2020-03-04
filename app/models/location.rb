@@ -1,4 +1,9 @@
 class Location < ApplicationRecord
+  validates_presence_of :city
+  validates_presence_of :state, optional: :true
+  validates_presence_of :country
+  validates_presence_of :latitude
+  validates_presence_of :longitude
 
   def self.save_location(params)
     location = Location.create_or_find_by(
