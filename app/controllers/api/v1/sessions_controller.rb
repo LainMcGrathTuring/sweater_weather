@@ -5,9 +5,11 @@ class Api::V1::SessionsController < ApplicationController
 
   def create
    if (user = User.find_by(email: params[:email])) && user.authenticate(params[:password])
-     render json: { :status=> 200, :body => user.api_key}
+     response.status = 201
+     render json: UserSerializer.new(user)
    else
-     render json: { :code=> 400, :body => "Credentials are not valid" }
+     response.status = 401
+     render json: "Credentials are not valid" 
    end
   end
 

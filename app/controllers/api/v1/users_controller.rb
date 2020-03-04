@@ -7,10 +7,11 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.create(user_params)
     if user.save
-      body = { api_key: user.api_key }
-      render json: { :status=>200, :body => body }
+      response.status = 201
+      render json: UserSerializer.new(user)
     else
-      render json: { :code => 400, :body => user.errors.full_messages.to_sentence }
+      response.status = 401
+      render json: user.errors.full_messages.to_sentence
     end
   end
 
