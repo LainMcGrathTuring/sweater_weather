@@ -17,9 +17,4 @@ class ForecastSummary
   def hourly_forecast
     HourlyForecast.hourly_forecast(response[:hourly])
   end
-
-  def arrival_forcast(trip_details)
-    HourlyForecast.find_arrival_forcast(response[:hourly])
-  end
-
 end
