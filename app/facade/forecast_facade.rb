@@ -1,15 +1,32 @@
 class ForecastFacade
 
-  attr_reader :location_results, :forecast_response, :image
+  # attr_reader :location_results, :forecast_response, :image
+  attr_reader :id
 
   def initialize(params)
-    @location_results = LocationFetcher.new.get_location(params)
-    @forecast_response = ForecastSummary.new(location_results)
-    @image = ImageSummary.new(location_results).single_image
+    @id = nil
+    @location = params['location']
   end
 
-  #call serializer here
-  def forecast_serializer
-    ForecastSerializer.generate_json(self)
+  def location_results
+    LocationFetcher.new.get_location(@location)
+  end
+
+  def forecast_response
+    return @forecast if @forecast
+    location = location_results
+    @forecast = ForecastSummary.new(location)
+  end
+
+  def daily_weather_forecast
+    forecast_response.daily_forecast
+  end
+
+  def hourly_weather_forecast
+    forecast_response.hourly_forecast
+  end
+
+  def current_weather
+    forecast_response.current_weather
   end
 end
