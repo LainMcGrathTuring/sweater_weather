@@ -4,16 +4,17 @@ class ImageSummary
 
   def initialize(location)
     @image = ImageFetcher.new.get_image(location)
+    @location = location
   end
 
   def single_image
-    return @image_results if @image_results
     single_image = image[:results].sample
     @image_results = {
       alt_description: single_image[:alt_description],
       height: single_image[:height],
       width: single_image[:width],
-      urls: single_image[:urls]
+      urls: single_image[:urls],
+      image_location: @location.city
     }
   end
 end

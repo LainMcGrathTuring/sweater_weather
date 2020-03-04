@@ -1,5 +1,6 @@
 class ImageFacade
-  attr_reader :id
+  attr_reader :id,
+              :location
 
   def initialize(location)
     @id = nil
