@@ -9,11 +9,11 @@ RSpec.describe 'Weather API' do
 
     forecast_response = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
-    expect(forecast_response.count).to eq(5)
+    expect(forecast_response.count).to eq(4)
     expect(forecast_response[:location_results][:city]).to eq("Denver")
     expect(forecast_response[:daily_weather_forecast].count).to eq(6)
     expect(forecast_response[:hourly_weather_forecast].count).to eq(8)
     expect(forecast_response[:current_weather].count).to eq(7)
-    expect(forecast_response[:image_info][:urls].count).to eq(5)
+    # expect(forecast_response[:image_info][:urls].count).to eq(5)
   end
 end
