@@ -28,9 +28,4 @@ class ForecastFacade
   def current_weather
     forecast_response.current_weather
   end
-
-  def image_info
-    image = ImageSummary.new(@location)
-    image.single_image
-  end
 end
