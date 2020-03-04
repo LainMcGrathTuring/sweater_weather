@@ -19,7 +19,7 @@ RSpec.describe 'Login' do
     expect(user_response['data']['attributes']).to have_key('api_key')
   end
 
-  it "cannot save with bad credentails", :vcr do
+  it "cannot save with mistmatched passwords", :vcr do
     user = {
       "email": "whatever@example.com",
       "password": "password",
@@ -33,7 +33,21 @@ RSpec.describe 'Login' do
     expect(response.body).to eq("Password confirmation doesn't match Password")
   end
 
-  it "if registered", :vcr  do
+  xit "cannot save with invalid email address", :vcr do
+    user = {
+      "email": "whatever@examp",
+      "password": "password",
+      "password_confirmation": "password"
+    }
+
+    post '/api/v1/users', params: user
+
+    expect(response).to_not be_successful
+
+    expect(response.body).to eq("Password confirmation doesn't match Password")
+  end
+
+  it "if registered, user can login", :vcr  do
     user = User.create(
         "email": "whatever@example.com",
         "password": "password",
@@ -51,7 +65,7 @@ RSpec.describe 'Login' do
     expect(user_response['data']['attributes']).to have_key('api_key')
   end
 
-  it "if registered and enters bad credentials", :vcr  do
+  it "if registered and enters bad password", :vcr  do
     user = User.create(
         "email": "whatever@example.com",
         "password": "password",
@@ -60,6 +74,23 @@ RSpec.describe 'Login' do
 
     created_user = {"email": "whatever@example.com",
       "password": "passwo"}
+
+    post '/api/v1/sessions', params: created_user
+
+    expect(response).to_not be_successful
+
+    expect(response.body).to eq("Credentials are not valid")
+  end
+
+  it "if registered and enters invvalid email", :vcr  do
+    user = User.create(
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+      )
+
+    created_user = {"email": "whatever@exampl",
+      "password": "password"}
 
     post '/api/v1/sessions', params: created_user
 

@@ -1,6 +1,5 @@
 class ForecastFacade
 
-  # attr_reader :location_results, :forecast_response, :image
   attr_reader :id
 
   def initialize(params)
