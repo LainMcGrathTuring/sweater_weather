@@ -1,11 +1,10 @@
 class ForecastFetcher
 
-  def connection
+  def conn
     Faraday.new("https://api.darksky.net/forecast")
   end
 
   def get_forecast(location)
-    conn = connection
     response = conn.get("#{ENV['DARK_SKY_API']}/#{location.latitude},#{location.longitude}")
     response_parse(response)
   end

@@ -1,11 +1,10 @@
 class YelpFetcher
 
-  def connection
+  def conn
     Faraday.new("https://api.yelp.com/v3/")
   end
 
   def get_business(params)
-    conn = connection
     response = conn.get("businesses/search") do |req|
       req.params['location'] = params[:end]
       req.params['term'] = params[:food]

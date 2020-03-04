@@ -1,11 +1,10 @@
 class ImageFetcher
 
-  def connection
+  def conn
     Faraday.new("https://api.unsplash.com")
   end
 
   def get_image(location)
-    conn = connection
     response = conn.get("search/photos") do |req|
       req.params['client_id'] = ENV['UPSPLASH_ACCESS_KEY']
       req.params['query'] = "#{location} skyline"

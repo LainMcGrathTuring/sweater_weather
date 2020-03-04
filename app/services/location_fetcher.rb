@@ -1,11 +1,10 @@
 class LocationFetcher
 
-  def connection
+  def conn
     Faraday.new("https://maps.googleapis.com")
   end
 
   def get_location(params)
-    conn = connection
     response = conn.get("maps/api/geocode/json") do |req|
       req.params['address'] = "#{params}"
       req.params['key'] = ENV['GOOGLE_API']
