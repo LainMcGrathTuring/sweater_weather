@@ -13,8 +13,10 @@ RSpec.describe 'Login' do
       "password": "password",
       "password_confirmation": "password")
 
+    user_response = JSON.parse(response.body)
+
     expect(response).to be_successful
-    #response.body api returns different api key than created_user, test for this?
+    expect(user_response['data']['attributes']).to have_key('api_key')
   end
 
   it "cannot save with bad credentails", :vcr do
@@ -25,9 +27,10 @@ RSpec.describe 'Login' do
     }
 
     post '/api/v1/users', params: user
-    expect(response).to be_successful
 
-    expect(response.body).to eq("{\"code\":400,\"body\":\"Password confirmation doesn't match Password\"}")
+    expect(response).to_not be_successful
+
+    expect(response.body).to eq("Password confirmation doesn't match Password")
   end
 
   it "if registered" do
@@ -40,8 +43,28 @@ RSpec.describe 'Login' do
     created_user = {"email": "whatever@example.com",
       "password": "password"}
 
-      post '/api/v1/sessions', params: created_user
-      expect(response).to be_successful
-      # expect(response.body).to eq("{\"status\":200,\"body\":\"3SCEyhW5hWPuFCTMpgVvXYUn\"}")
+    post '/api/v1/sessions', params: created_user
+
+    expect(response).to be_successful
+
+    user_response = JSON.parse(response.body)
+    expect(user_response['data']['attributes']).to have_key('api_key')
+  end
+
+  it "if registered and enters bad credentials" do
+    user = User.create(
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+      )
+
+    created_user = {"email": "whatever@example.com",
+      "password": "passwo"}
+
+    post '/api/v1/sessions', params: created_user
+
+    expect(response).to_not be_successful
+
+    expect(response.body).to eq("Credentials are not valid")
   end
 end
