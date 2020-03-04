@@ -7,13 +7,13 @@ class LocationFetcher
   def get_location(params)
     conn = connection
     response = conn.get("maps/api/geocode/json") do |req|
-      req.params['address'] = params[:location]
+      req.params['address'] = "#{params}"
       req.params['key'] = ENV['GOOGLE_API']
     end
-    response_parse(response)
+    location_parse(response)
   end
 
-  def response_parse(response)
+  def location_parse(response)
     parse = JSON.parse(response.body, symbolize_names: true)
     Location.save_location(parse)
   end

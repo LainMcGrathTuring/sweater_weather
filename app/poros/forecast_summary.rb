@@ -17,5 +17,4 @@ class ForecastSummary
   def hourly_forecast
     HourlyForecast.hourly_forecast(response[:hourly])
   end
-
 end
