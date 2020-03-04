@@ -28,6 +28,8 @@ class LocationFetcher
 
   def distance_parse(response)
     parse = JSON.parse(response.body, symbolize_names: true)
-    Trip.new(parse[:routes][0][:legs][0])
+    if parse[:routes][0] != nil
+      Trip.new(parse[:routes][0][:legs][0])
+    end
   end
 end
