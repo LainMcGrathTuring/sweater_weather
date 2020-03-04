@@ -3,6 +3,6 @@ class ForecastSerializer
     attributes :location_results,
                :daily_weather_forecast,
                :hourly_weather_forecast,
-               :current_weather,
-               :image_info
+               :current_weather
+
 end
