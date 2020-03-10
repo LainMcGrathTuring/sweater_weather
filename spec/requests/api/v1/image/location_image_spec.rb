@@ -13,9 +13,10 @@ RSpec.describe 'Image API' do
       image_response = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
       expect(image_response[:image_info][:urls].count).to eq(5)
-      expect(image_response[:image_info].count).to eq(4)
+      expect(image_response[:image_info].count).to eq(6)
       expect(image_response[:image_info]).to have_key(:alt_description)
-      # expect(image_response[:image_info][:location]).to eq("Denver")
+      expect(image_response[:image_info][:city]).to eq("Denver")
+      expect(image_response[:image_info][:country]).to eq("United States")
     end
   end
 
@@ -30,9 +31,10 @@ RSpec.describe 'Image API' do
       image_response = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
       expect(image_response[:image_info][:urls].count).to eq(5)
-      expect(image_response[:image_info].count).to eq(4)
+      expect(image_response[:image_info].count).to eq(6)
       expect(image_response[:image_info]).to have_key(:alt_description)
-      # expect(image_response[:image_info][:location]).to eq("Fort Collins")
+      expect(image_response[:image_info][:city]).to eq("Fort Collins")
+      expect(image_response[:image_info][:country]).to eq("United States")
     end
   end
 end
