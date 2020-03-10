@@ -34,7 +34,8 @@ RSpec.describe 'Road Trip' do
 
     post "/api/v1/road_trip", params: params
     trip_response = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
-    expect(trip_response[:distance]).to eq("no routes found")
-    expect(trip_response[:arrival_forecast]).to eq("cannot fetch forecast without a route")
+    
+    expect(trip_response[:distance]).to eq("No routes found.")
+    expect(trip_response[:arrival_forecast]).to eq("Cannot fetch forecast without a route.")
   end
 end
