@@ -17,18 +17,11 @@ class RoadTripFacade
 
   def distance
     trip = LocationFetcher.new.get_distance(origin, destination)
-    if trip
-      trip
-    else
-      "no routes found"
-    end
+    trip ? trip : "No routes found."
   end
 
   def arrival_forecast
-    if distance == "no routes found"
-      "cannot fetch forecast without a route"
-    else
-      ForecastFetcher.new.get_future_forecast(destination, distance.estimated_arrival_time)
-    end
+    distance == "No routes found." ? "Cannot fetch forecast without a route."
+    : ForecastFetcher.new.get_future_forecast(destination, distance.estimated_arrival_time)
   end
 end
