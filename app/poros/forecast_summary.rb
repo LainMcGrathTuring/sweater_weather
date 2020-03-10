@@ -3,7 +3,7 @@ class ForecastSummary
   attr_reader :response
 
   def initialize(location)
-    @response = ForecastFetcher.new.get_forecast(location)
+    @response ||= ForecastFetcher.new.get_forecast(location)
   end
 
   def current_weather
