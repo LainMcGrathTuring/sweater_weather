@@ -8,7 +8,7 @@ class ForecastFacade
   end
 
   def location_results
-    LocationFetcher.new.get_location(@location)
+    @forecast_location ||= LocationFetcher.new.get_location(@location)
   end
 
   def forecast_response
