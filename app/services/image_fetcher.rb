@@ -7,7 +7,7 @@ class ImageFetcher
   def get_image(location)
     response = conn.get("search/photos") do |req|
       req.params['client_id'] = ENV['UPSPLASH_ACCESS_KEY']
-      req.params['query'] = "#{location} skyline"
+      req.params['query'] = "#{location.city} skyline"
     end
     parse_response(response)
   end
