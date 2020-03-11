@@ -21,7 +21,11 @@ class RoadTripFacade
   end
 
   def arrival_forecast
-    distance == "No routes found." ? "Cannot fetch forecast without a route."
-    : ForecastFetcher.new.get_future_forecast(destination, distance.estimated_arrival_time)
+    if distance == "No routes found."
+      "Cannot fetch forecast without a route."
+    else
+      params = "#{destination.latitude},#{destination.longitude},#{distance.estimated_arrival_time}"
+      ForecastFetcher.new.get_future_forecast(params)
+    end
   end
 end
