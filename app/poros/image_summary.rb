@@ -14,7 +14,8 @@ class ImageSummary
       height: single_image[:height],
       width: single_image[:width],
       urls: single_image[:urls],
-      location: @location.city
+      city: @location.city,
+      country: @location.country
     }
   end
 end

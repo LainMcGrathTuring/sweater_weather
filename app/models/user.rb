@@ -2,7 +2,7 @@ class User < ApplicationRecord
   before_create :set_api_key
 
   validates_presence_of :email
-  validates :email, uniqueness: true, on: :create
+  validates :email, presence: true, email: true, uniqueness: true, on: :create
   validates_presence_of :password, require: true, :on => :create
   validates_presence_of :password_confirmation, require: true, :on => :create
 

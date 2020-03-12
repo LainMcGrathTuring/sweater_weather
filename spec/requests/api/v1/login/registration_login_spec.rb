@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Login' do
-  it 'saves to the database and generate an api key', :vcr  do
+  it 'saves to the database and generate an api key', :vcr do
     user = {
       "email": "whatever@example.com",
       "password": "password",
@@ -16,6 +16,7 @@ RSpec.describe 'Login' do
     user_response = JSON.parse(response.body)
 
     expect(response).to be_successful
+    expect(user_response['data']['attributes']).to have_key('api_key')
     expect(user_response['data']['attributes']).to have_key('api_key')
   end
 
@@ -33,7 +34,7 @@ RSpec.describe 'Login' do
     expect(response.body).to eq("Password confirmation doesn't match Password")
   end
 
-  xit "cannot save with invalid email address", :vcr do
+  it "cannot save with invalid email address", :vcr do
     user = {
       "email": "whatever@examp",
       "password": "password",
@@ -44,7 +45,7 @@ RSpec.describe 'Login' do
 
     expect(response).to_not be_successful
 
-    expect(response.body).to eq("Password confirmation doesn't match Password")
+    expect(response.body).to eq("Email is not a valid email address")
   end
 
   it "if registered, user can login", :vcr  do

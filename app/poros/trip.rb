@@ -3,8 +3,8 @@ class Trip
               :travel_time
 
   def initialize(data)
-    @travel_time = data[:duration][:text]
-    @travel_time_in_seconds = data[:duration][:value]
+    @travel_time = data[:text]
+    @travel_time_in_seconds = data[:value]
   end
 
   def estimated_arrival_time
